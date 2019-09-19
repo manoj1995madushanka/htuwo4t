@@ -27,8 +27,8 @@ public class RoomService {
         return roomRepository.findByHotelId(hotelId, pageable);
     }
 
-    public Room getRoom(String roomType){
-        return roomRepository.findById(roomType).get();
+    public Room getRoom(Long roomId){
+        return roomRepository.findById(roomId).get();
     }
 
     public void addRoom(Room room){
@@ -38,31 +38,33 @@ public class RoomService {
     public Room addRoom(Long hotelId, Room room){
         return hotelRepository.findById(hotelId).map(Hotel -> {
             room.setHotel(Hotel);
+            System.out.println(hotelId);
+            System.out.println(Hotel.getHotel_id());
             /*contract.setContractId(contract.getContractId());*/
             return roomRepository.save(room);
         }).orElseThrow(() -> new ResourceNotFoundException("HotelId " + hotelId + " not found"));
     }
 
-    public void updateRoom(Room room, String roomType){
-        room.setRoom_type(roomType);
+    public void updateRoom(Room room, Long roomId){
+        room.setRoomId(roomId);
         roomRepository.save(room);
     }
 
-    public Room updateRoom(Long hotelId,String roomType,Room room){
+    public Room updateRoom(Long hotelId,Long roomId,Room room){
         if(!hotelRepository.existsById(hotelId)) {
             throw new ResourceNotFoundException("HotelId " + hotelId + " not found");
         }
 
-        return roomRepository.findById(roomType).map(Room -> {
+        return roomRepository.findById(roomId).map(Room -> {
             Room.setMax_adults(room.getMax_adults());
             /*Room.setRoom_count(room.getRoom_count());
             Room.setRoom_price(room.getRoom_price());*/
             return roomRepository.save(Room);
-        }).orElseThrow(() -> new ResourceNotFoundException("Room type " + roomType + "not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Room id " + roomId + "not found"));
     }
 
-    public void deleteRoom(String roomType) {
-        roomRepository.deleteById(roomType);
+    public void deleteRoom(Long roomId) {
+        roomRepository.deleteById(roomId);
     }
 
     /*public ResponseEntity<?> deleteRoom(Long hotelId, String roomType){

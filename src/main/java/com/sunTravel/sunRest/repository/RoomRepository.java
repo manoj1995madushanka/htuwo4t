@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room,String> {
+public interface RoomRepository extends JpaRepository<Room,Long> {
 
     List<Room> findByHotelId(Long hotelId, Pageable pageable);
     /*Optional<Room> findByRoom_TypeAndHotelId(String roomId, Long hotelId);*/

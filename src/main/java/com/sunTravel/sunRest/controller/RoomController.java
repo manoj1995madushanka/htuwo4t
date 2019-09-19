@@ -31,7 +31,7 @@ public class RoomController {
 
     // get room only using room type
     @RequestMapping("/rooms/{roomType}")
-    public Room getRoom(@PathVariable("roomType") String roomType){
+    public Room getRoom(@PathVariable("roomType") Long roomType){
         return this.roomService.getRoom(roomType);
     }
     // add contract without hotel not necessary method
@@ -49,21 +49,21 @@ public class RoomController {
 
     // update contract using contract id
     @RequestMapping(method = RequestMethod.PUT, value= "rooms/{roomType}")
-    public void updateRoom(@RequestBody Room room, @PathVariable String roomType){
+    public void updateRoom(@RequestBody Room room, @PathVariable Long roomType){
         roomService.updateRoom(room,roomType);
     }
 
     // update contract using hotel id and contract id as parameter
     @PutMapping("/hotels/{hotelId}/rooms/{roomType}")
     public void updateRoom(@PathVariable (value = "hotelId") Long hotelId,
-                               @PathVariable (value = "roomType") String roomType,
+                               @PathVariable (value = "roomType") Long roomType,
                                @Valid @RequestBody Room room) {
         this.roomService.updateRoom(hotelId,roomType,room);
     }
 
     // delete contract using contract id
     @RequestMapping(method = RequestMethod.DELETE, value = "rooms/{roomType}")
-    public void deleteRoom(@PathVariable("roomType") String roomType)
+    public void deleteRoom(@PathVariable("roomType") Long roomType)
     {
         roomService.deleteRoom(roomType);
     }

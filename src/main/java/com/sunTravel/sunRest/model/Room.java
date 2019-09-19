@@ -17,13 +17,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name="T475_Room")
-@NaturalIdCache
+/*@NaturalIdCache
 @Cache(
        usage =  CacheConcurrencyStrategy.READ_WRITE
-)
+)*/
 public class Room implements Serializable {
     @Id
-    @NaturalId
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "roomId")
+    private long roomId;
+    /*@NaturalId*/
     @Column(name="room_type")
     private String room_type;
     @Column(name="max_adults")
@@ -34,25 +37,34 @@ public class Room implements Serializable {
     @Column(name="room_price")
     private double room_price;*/
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "hotel_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     /*@JsonIgnore*/
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Hotel hotel;
 
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "room",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<ContractRoom> contracts = new ArrayList<>();
+    private List<ContractRoom> contracts = new ArrayList<>();*/
 
     public Room(){}
 
-    public Room(String room_type, int max_adults) {
+    public Room(String room_type, int max_adults, Hotel hotel) {
         this.room_type = room_type;
         this.max_adults = max_adults;
+        this.hotel = hotel;
+    }
+
+    public long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(long roomId) {
+        this.roomId = roomId;
     }
 
     public String getRoom_type() {
@@ -79,13 +91,13 @@ public class Room implements Serializable {
         this.hotel = hotel;
     }
 
-    public List<ContractRoom> getContracts() {
+    /*public List<ContractRoom> getContracts() {
         return contracts;
     }
 
     public void setContracts(List<ContractRoom> contracts) {
         this.contracts = contracts;
-    }
+    }*/
 
     /*@Override
     public boolean equals(Object o) {

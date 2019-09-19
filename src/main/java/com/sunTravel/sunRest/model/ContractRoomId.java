@@ -12,14 +12,14 @@ public class ContractRoomId implements Serializable {
     @Column(name = "contractId")
     private Long contractId;
 
-    @Column(name = "room_type")
-    private String room_type;
+    @Column(name = "roomId")
+    private Long roomId;
 
     private ContractRoomId() {}
 
-    public ContractRoomId(Long contractId, String room_type) {
+    public ContractRoomId(Long contractId, Long roomId) {
         this.contractId = contractId;
-        this.room_type = room_type;
+        this.roomId = roomId;
     }
 
     //Getters omitted for brevity
@@ -33,12 +33,12 @@ public class ContractRoomId implements Serializable {
         this.contractId = contractId;
     }
 
-    public String getRoom_type() {
-        return room_type;
+    public Long getRoomId() {
+        return roomId;
     }
 
-    public void setRoom_type(String room_type) {
-        this.room_type = room_type;
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
     @Override
@@ -50,11 +50,11 @@ public class ContractRoomId implements Serializable {
 
         ContractRoomId that = (ContractRoomId) o;
         return Objects.equals(contractId, that.contractId) &&
-                Objects.equals(room_type, that.room_type);
+                Objects.equals(roomId, that.roomId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(contractId, room_type);
+        return Objects.hash(contractId, roomId);
     }
 }

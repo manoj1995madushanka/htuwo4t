@@ -30,12 +30,12 @@ public class  Contract implements Serializable {
     private Hotel hotel;
 
 
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "contract",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<ContractRoom> rooms = new ArrayList<>();
+    private List<ContractRoom> rooms = new ArrayList<>();*/
 
     public Contract(){}
 
@@ -76,13 +76,13 @@ public class  Contract implements Serializable {
         this.hotel = hotel;
     }
 
-    public List<ContractRoom> getRooms() {
+    /*public List<ContractRoom> getRooms() {
         return rooms;
     }
 
     public void setRooms(List<ContractRoom> rooms) {
         this.rooms = rooms;
-    }
+    }*/
 
     /*Notice that the Post entity features the addTag and removeTag utility methods which are needed by every
     bidirectional association so that all sides of the association stay in sync.
@@ -92,7 +92,7 @@ public class  Contract implements Serializable {
 
     //
 
-    public void addRoom(Room room, int roomCount, double roomPrice){
+    /*public void addRoom(Room room, int roomCount, double roomPrice){
         ContractRoom contractRoom = new ContractRoom(this,room, roomCount, roomPrice);
         rooms.add(contractRoom);
         room.getContracts().add(contractRoom);
@@ -110,7 +110,7 @@ public class  Contract implements Serializable {
                 contractRoom.setRoom(null);
             }
         }
-    }
+    }*/
 
    /* @Override
     public boolean equals(Object o) {

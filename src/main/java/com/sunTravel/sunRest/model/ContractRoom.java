@@ -1,5 +1,7 @@
 package com.sunTravel.sunRest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,15 +9,19 @@ import java.util.Objects;
 @Table(name = "T475_ContractRoom")
 public class ContractRoom {
 
-    @EmbeddedId
-    private ContractRoomId id;
+    /*@EmbeddedId
+    private ContractRoomId contractRoomId;*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "contractRoomId")
+    private long contractRoomId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("contractId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Contract contract;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("room_type")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Room room;
 
     /*@Column(name = "created_on")
@@ -35,22 +41,28 @@ public class ContractRoom {
         this.id = new PostTagId(post.getId(), tag.getId());
     }*/
 
-    public ContractRoom(Contract contract, Room room, int room_count, double room_price) {
-        this.contract = contract;
-        this.room = room;
+    public ContractRoom(int room_count, double room_price) {
         this.room_count = room_count;
         this.room_price = room_price;
-        this.id = new ContractRoomId(contract.getContractId(),room.getRoom_type());
+        /*this.contractRoomId = new ContractRoomId(contract.getContractId(),room.getRoomId());*/
     }
     //Getters and setters omitted for brevity
 
 
-    public ContractRoomId getId() {
-        return id;
+   /* public ContractRoomId getId() {
+        return contractRoomId;
     }
 
     public void setId(ContractRoomId id) {
-        this.id = id;
+        this.contractRoomId = id;
+    }*/
+
+    public long getContractRoomId() {
+        return contractRoomId;
+    }
+
+    public void setContractRoomId(long contractRoomId) {
+        this.contractRoomId = contractRoomId;
     }
 
     public Contract getContract() {

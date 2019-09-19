@@ -2,6 +2,7 @@ package com.sunTravel.sunRest.repository;
 
 import com.sunTravel.sunRest.model.Contract;
 import com.sunTravel.sunRest.model.Hotel;
+import com.sunTravel.sunRest.model.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,7 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findByHotelId(Long hotelId, Pageable pageable);
     /*Optional<Contract> findByIdAndHotelId(Long id, Long hotelId);*/
     Optional<Contract> findByContractIdAndHotelId(Long contractId, Long hotelId);
+
 
 
 }
